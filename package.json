@@ -1,0 +1,39 @@
+{
+  "name": "reviews-proxy",
+  "version": "1.0.0",
+  "description": "Repo for my Airbnb proxy server",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "boot": "nodemon server",
+    "build": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Air-Tree-n-Tree/reviews-proxy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Air-Tree-n-Tree/reviews-proxy/issues"
+  },
+  "homepage": "https://github.com/Air-Tree-n-Tree/reviews-proxy#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.6",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/runtime": "^7.8.7",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "css-loader": "^3.4.2",
+    "style-loader": "^1.1.3"
+  }
+}
