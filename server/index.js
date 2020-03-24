@@ -1,17 +1,49 @@
 const express = require('express');
-const path = require('path');
 const axios = require('axios');
+const path = require('path');
 
-const app = express();
-const PORT = 3000;
+const proxyServer = express();
+proxyServer.use(express.static(path.resolve(__dirname, '..', 'public')));
 
-const PUBLIC_DIR = path.join(__dirname, '..', '/public');
+const reservationServer = 'http://localhost:3002';
+const reviewsServer = 'http://localhost:3001';
 
-app.use(express.static(PUBLIC_DIR));
-app.use(express.json());
+const redirectRequest = ({ method, originalUrl, params, }, domain) => (
+  axios({
+    url: `${domain}${originalUrl}`,
+    method,
+    params,
+  })
+);
 
-app.use('/', (req, res) => {
-  //route to other service servers
+proxyServer.use('/reviewsBundle.js', (req, res) => {
+  redirectRequest(req, reviewsServer)
+    .then(({ data }) => {
+      res.send(data);
+    });
 });
 
-app.listen(PORT, console.log(`Listening on port: ${PORT}`));
+proxyServer.use('/reservationsBundle.js', (req, res) => {
+  redirectRequest(req, reviewsServer)
+    .then(({ data }) => {
+      res.send(data);
+    });
+});
+
+proxyServer.use('/api/reviews', (req, res) => {
+  redirectRequest(req, reviewsServer)
+    .then(({ data }) => {
+      res.send(data);
+    });
+});
+
+proxyServer.use('/api/reservations', (req, res) => {
+  redirectRequest(req, reservationServer)
+    .then(({ data }) => {
+      res.send(data);
+    });
+});
+
+proxyServer.listen('3000', () => {
+  console.log('Listening on port: 3000');
+});
